@@ -2,6 +2,7 @@ package com.example.tiburcio.ejemploproveedorcontenido.ciclo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,9 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,7 +24,9 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.tiburcio.ejemploproveedorcontenido.R;
+import com.example.tiburcio.ejemploproveedorcontenido.constantes.G;
 import com.example.tiburcio.ejemploproveedorcontenido.pojos.Ciclo;
+import com.example.tiburcio.ejemploproveedorcontenido.proveedor.CicloProveedor;
 import com.example.tiburcio.ejemploproveedorcontenido.proveedor.Contrato;
 
 public class CicloListFragment extends ListFragment
@@ -44,7 +50,27 @@ public class CicloListFragment extends ListFragment
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+
+		MenuItem menuItem = menu.add(Menu.NONE, G.INSERTAR, Menu.NONE, "INSERTAR");
+		menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		menuItem.setIcon(R.drawable.ic_nuevo_registro);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()){
+			case G.INSERTAR:
+				Intent intent = new Intent(getActivity(), CicloDetalleActivity.class);
+				startActivity(intent);
+				break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	/**
